@@ -10,7 +10,8 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 begin = datetime.datetime.now()
-headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"}
+headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                         "Chrome/56.0.2924.87 Safari/537.36"}
 url = 'https://shop.48.cn/Goods'
 start_html = requests.get(url, headers=headers).content
 soup = BeautifulSoup(start_html, "lxml")
@@ -22,7 +23,8 @@ data = []
 
 with open('data.txt', 'w') as f:
     while pagenum < math.ceil(num/pagecount):
-        url = 'https://shop.48.cn/Goods?totalCount={}&brand_id=-1&pageNum={}&numPerPage={}'.format(num, pagenum, pagecount)
+        url = 'https://shop.48.cn/Goods?totalCount={}&brand_id=-1&pageNum={}&numPerPage={}'\
+            .format(num, pagenum, pagecount)
         shop_html = requests.get(url, headers=headers).content
         soup = BeautifulSoup(shop_html, 'lxml')
         shop = soup.find('div', class_='goods').find_all('div', class_='gs_xx')
